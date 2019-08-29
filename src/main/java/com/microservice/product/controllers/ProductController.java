@@ -22,12 +22,11 @@ public class ProductController {
 
     private static Logger logger = LoggerFactory.getLogger(ProductController.class);
 
-    private GraphQLProductService graphQLService;
-    private IProductService productService;
+    private final GraphQLProductService graphQLService;
+    private final IProductService productService;
 
     @Autowired
-    public ProductController(IProductService productService,
-                             GraphQLProductService graphQLService){
+    public ProductController(IProductService productService, GraphQLProductService graphQLService){
         this.productService = productService;
         this.graphQLService = graphQLService;
     }
@@ -52,8 +51,15 @@ public class ProductController {
 
     @DeleteMapping("{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void deleteById(@PathVariable("id") Long id) throws ProductException{
-        this.productService.deleteById(id);
+    public ResponseEntity<?> deleteById(@PathVariable("id") Long id) throws ProductException{
+
+        try{
+            this.productService.deleteById(id);
+            return ResponseEntity.ok( Boolean.TRUE );
+        } catch (ProductException ex) {
+            throw new ProductException("id " + id + " dont exist, could be deleted");
+        }
+
     }
 
     @PostMapping

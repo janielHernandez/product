@@ -22,17 +22,13 @@ public class GraphQLProductService {
     @Value("classpath:/graph/product.graphqls")
     Resource resource;
 
-    private IProductService productService;
 
     private GraphQL graphQL;
 
     private  AllProductDataFetcher allProductDataFetcher;
 
     @Autowired
-    public GraphQLProductService(IProductService productService,
-                                 AllProductDataFetcher allProductDataFetcher
-    ) {
-        this.productService = productService;
+    public GraphQLProductService( AllProductDataFetcher allProductDataFetcher) {
         this.allProductDataFetcher = allProductDataFetcher;
     }
 

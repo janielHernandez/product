@@ -30,7 +30,7 @@ public class ProductServiceTest {
 
     @Before
     public void init() {
-        product = new Product(10L,"Egg",1.4, new Date());
+//        product = new Product(10L,"Egg",1.4, new Date());
     }
 
     @Test

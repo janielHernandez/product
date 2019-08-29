@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.Date;
 
@@ -19,8 +20,19 @@ public class RestExceptionHandler {
     public ResponseEntity<?> manageProductException(ProductException ex){
         var error = new ExceptionDetail();
         error.setMessage(ex.getMessage());
-        error.setStatus(HttpStatus.BAD_GATEWAY);
+        error.setStatus(HttpStatus.NOT_FOUND.value());
         error.setTimestamp( new Date());
-        return new ResponseEntity<>(error, error.getStatus());
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<?> badArgument(MethodArgumentTypeMismatchException ex){
+        var error = new ExceptionDetail();
+        error.setMessage(ex.getMessage());
+        error.setStatus(HttpStatus.BAD_REQUEST.value());
+        error.setTimestamp( new Date());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+
 }
