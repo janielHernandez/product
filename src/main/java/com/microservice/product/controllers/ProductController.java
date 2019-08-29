@@ -3,9 +3,7 @@ package com.microservice.product.controllers;
 
 import com.microservice.product.entities.Product;
 import com.microservice.product.exception.ProductException;
-import com.microservice.product.services.GraphQLProductService;
 import com.microservice.product.services.IProductService;
-import graphql.ExecutionResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,21 +20,21 @@ public class ProductController {
 
     private static Logger logger = LoggerFactory.getLogger(ProductController.class);
 
-    private final GraphQLProductService graphQLService;
+//    private final GraphQLProductService graphQLService;
     private final IProductService productService;
 
     @Autowired
-    public ProductController(IProductService productService, GraphQLProductService graphQLService){
+    public ProductController(IProductService productService){
         this.productService = productService;
-        this.graphQLService = graphQLService;
+//        this.graphQLService = graphQLService;
     }
 
-    @PostMapping("graphql")
-    public ResponseEntity<Object> graph(@RequestBody String query){
-        logger.info("Looking ");
-        ExecutionResult execute = graphQLService.getGraphQL().execute(query);
-        return new ResponseEntity<>(execute, HttpStatus.OK);
-    }
+//    @PostMapping("graphql")
+//    public ResponseEntity<Object> graph(@RequestBody String query){
+//        logger.info("Looking ");
+//        ExecutionResult execute = graphQLService.getGraphQL().execute(query);
+//        return new ResponseEntity<>(execute, HttpStatus.OK);
+//    }
 
     @GetMapping("{id}")
     public ResponseEntity<?> findById(@PathVariable("id") Long id) throws ProductException {
