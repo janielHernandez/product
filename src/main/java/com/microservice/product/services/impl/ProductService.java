@@ -4,7 +4,7 @@ import com.microservice.product.entities.Product;
 import com.microservice.product.exception.ProductException;
 import com.microservice.product.repositories.ProductRepository;
 import com.microservice.product.services.IProductService;
-import org.dozer.DozerBeanMapper;
+//import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,12 +17,12 @@ import java.util.List;
 public class ProductService implements IProductService {
 
     private ProductRepository productRepository;
-    DozerBeanMapper mapper;
+//    DozerBeanMapper mapper;
 
     @Autowired
     public ProductService(ProductRepository productRepository){
         this.productRepository = productRepository;
-        this.mapper = new DozerBeanMapper();
+//        this.mapper = new DozerBeanMapper();
     }
 
     public List<Product> findAll(){
@@ -48,8 +48,8 @@ public class ProductService implements IProductService {
     }
 
     public  Product update(Long id, Product details) throws ProductException{
-        var product = this.findById(id);
-        mapper.map(details, product);
+        Product product = this.findById(id);
+//        mapper.map(details, product);
         product.setId(id);
         return this.save(product);
     }
